@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= settings.site_name %> - Earn Money Online</title>
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="landing-page">
+    <nav class="landing-nav">
+      <div class="logo"><img src="/img/logo.svg" alt="EarnHub" class="logo-img"></div>
+      <div class="nav-btns">
+        <a href="/login" class="btn btn-outline">Login</a>
+        <a href="/register" class="btn btn-primary">Sign Up</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <h1>Watch Ads. <span class="highlight">Earn Money.</span></h1>
+      <p><%= settings.tagline %></p>
+      <div class="hero-stats">
+        <div class="stat-box">
+          <span class="stat-value">$0.0020</span>
+          <span class="stat-label">Per Ad View</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-value">10%</span>
+          <span class="stat-label">Referral Bonus</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-value">$1.00</span>
+          <span class="stat-label">Min Withdraw</span>
+        </div>
+      </div>
+      <a href="/register" class="btn btn-primary btn-lg">Start Earning Now</a>
+    </section>
+
+    <section class="features">
+      <h2>How It Works</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">1</div>
+          <h3>Sign Up Free</h3>
+          <p>Create your account with email and phone number</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">2</div>
+          <h3>Watch Ads</h3>
+          <p>View ads and earn $0.0020 per ad watched</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">3</div>
+          <h3>Complete Tasks</h3>
+          <p>Finish simple tasks for extra earnings</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">4</div>
+          <h3>Withdraw</h3>
+          <p>Cash out via USDT BEP20 (min $1.00)</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <h2>Refer Friends & Earn 10% Commission</h2>
+      <p>Share your referral link and earn 10% of your friends' earnings forever!</p>
+      <a href="/register" class="btn btn-primary btn-lg">Join EarnHub Today</a>
+    </section>
+
+    <footer class="landing-footer">
+      <p>&copy; 2026 EarnHub.com - All Rights Reserved</p>
+    </footer>
+  </div>
+</body>
+</html>

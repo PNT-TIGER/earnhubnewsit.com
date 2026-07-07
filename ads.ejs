@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch Ads - EarnHub</title>
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-left">
+        <a href="/" class="back-btn">&#8592;</a>
+        <span class="page-title">Watch Ads</span>
+      </div>
+      <div class="header-right">
+        <span class="balance-display">$<%= user.balance.toFixed(4) %></span>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <div class="ads-header">
+        <p class="ads-info">Earn <strong>$0.0020</strong> per ad view. Ads reset daily.</p>
+        <p class="ads-count">Viewed today: <strong><%= todayViews %></strong></p>
+      </div>
+
+      <div class="ads-list">
+        <% ads.forEach(ad => { %>
+          <div class="ad-card" id="ad-<%= ad.id %>">
+            <div class="ad-left">
+              <div class="ad-icon <%= ad.viewed ? 'ad-done' : 'ad-ready' %>">
+                <%= ad.viewed ? '&#10003;' : '&#9654;' %>
+              </div>
+              <div class="ad-info">
+                <h4><%= ad.title %></h4>
+                <p><%= ad.description %></p>
+                <span class="ad-reward">+$<%= ad.reward.toFixed(4) %></span>
+              </div>
+            </div>
+            <% if (!ad.viewed) { %>
+              <button class="btn btn-primary btn-sm" onclick="watchAd(<%= ad.id %>, this)">Watch</button>
+            <% } else { %>
+              <span class="badge badge-success">Done</span>
+            <% } %>
+          </div>
+        <% }) %>
+
+        <% if (ads.length === 0) { %>
+          <div class="empty-state">
+            <p>No ads available right now. Check back later!</p>
+          </div>
+        <% } %>
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="/" class="nav-item">
+        <img src="/img/favicon.svg" alt="Home" class="nav-svg">
+        <span>Home</span>
+      </a>
+      <a href="/ads" class="nav-item active">
+        <img src="/img/icon-ads.svg" alt="Ads" class="nav-svg">
+        <span>Ads</span>
+      </a>
+      <a href="/tasks" class="nav-item">
+        <img src="/img/icon-tasks.svg" alt="Tasks" class="nav-svg">
+        <span>Tasks</span>
+      </a>
+      <a href="/profile" class="nav-item">
+        <img src="/img/icon-profile.svg" alt="Profile" class="nav-svg">
+        <span>Profile</span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="modal-overlay" id="adModal" style="display:none;">
+    <div class="modal-content">
+      <h3 id="adModalTitle">Watching Ad...</h3>
+      <div class="ad-timer">
+        <div class="timer-circle">
+          <span id="timerCount">15</span>
+        </div>
+        <p>Please wait while the ad plays</p>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="adProgress"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Referral - EarnHub</title>
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-left">
+        <a href="/" class="back-btn">&#8592;</a>
+        <span class="page-title">Referral Program</span>
+      </div>
+      <div class="header-right">
+        <span class="balance-display">$<%= user.balance.toFixed(4) %></span>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <div class="referral-banner">
+        <h2>Earn 10% Commission</h2>
+        <p>For every ad your referrals watch, you earn 10% commission automatically!</p>
+      </div>
+
+      <div class="referral-stats">
+        <div class="ref-stat">
+          <span class="ref-stat-value"><%= referrals.length %></span>
+          <span class="ref-stat-label">Total Referrals</span>
+        </div>
+        <div class="ref-stat">
+          <span class="ref-stat-value">$<%= (user.referral_earnings || 0).toFixed(4) %></span>
+          <span class="ref-stat-label">Referral Earnings</span>
+        </div>
+      </div>
+
+      <div class="referral-code-box">
+        <h3>Your Referral Code</h3>
+        <div class="ref-code-display ref-code-lg">
+          <span id="refCode"><%= user.referral_code %></span>
+          <button onclick="copyRefCode()" class="btn-copy">Copy Code</button>
+        </div>
+      </div>
+
+      <div class="referral-link-box">
+        <h3>Your Referral Link</h3>
+        <div class="ref-link-display">
+          <input type="text" id="refLink" value="EarnHub.com/register?ref=<%= user.referral_code %>" readonly>
+          <button onclick="copyRefLink()" class="btn-copy">Copy Link</button>
+        </div>
+      </div>
+
+      <% if (referrals.length > 0) { %>
+        <div class="referral-list">
+          <h3>Your Referrals</h3>
+          <% referrals.forEach(ref => { %>
+            <div class="referral-item">
+              <div class="ref-avatar"><%= ref.name.charAt(0).toUpperCase() %></div>
+              <div class="ref-info">
+                <span class="ref-name"><%= ref.name %></span>
+                <span class="ref-date">Joined <%= new Date(ref.created_at).toLocaleDateString() %></span>
+              </div>
+              <span class="badge badge-<%= ref.status %>"><%= ref.status %></span>
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="empty-state">
+          <p>No referrals yet. Share your code and start earning!</p>
+        </div>
+      <% } %>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="/" class="nav-item">
+        <img src="/img/favicon.svg" alt="Home" class="nav-svg">
+        <span>Home</span>
+      </a>
+      <a href="/ads" class="nav-item">
+        <img src="/img/icon-ads.svg" alt="Ads" class="nav-svg">
+        <span>Ads</span>
+      </a>
+      <a href="/tasks" class="nav-item">
+        <img src="/img/icon-tasks.svg" alt="Tasks" class="nav-svg">
+        <span>Tasks</span>
+      </a>
+      <a href="/profile" class="nav-item">
+        <img src="/img/icon-profile.svg" alt="Profile" class="nav-svg">
+        <span>Profile</span>
+      </a>
+    </nav>
+  </div>
+  <script src="/js/main.js"></script>
+</body>
+</html>

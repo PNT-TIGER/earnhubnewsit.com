@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Withdraw - EarnHub</title>
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-left">
+        <a href="/" class="back-btn">&#8592;</a>
+        <span class="page-title">Withdraw</span>
+      </div>
+      <div class="header-right">
+        <span class="balance-display">$<%= user.balance.toFixed(4) %></span>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <div class="withdraw-info">
+        <div class="withdraw-balance">
+          <span>Available Balance</span>
+          <strong>$<%= user.balance.toFixed(4) %></strong>
+        </div>
+        <p>Minimum withdrawal: <strong>$<%= settings.min_withdrawal.toFixed(2) %></strong></p>
+        <p>Method: <strong><%= settings.withdraw_method %></strong></p>
+      </div>
+
+      <% if (error) { %>
+        <div class="alert alert-error"><%= error %></div>
+      <% } %>
+      <% if (success) { %>
+        <div class="alert alert-success"><%= success %></div>
+      <% } %>
+
+      <form method="POST" action="/withdraw" class="withdraw-form">
+        <div class="form-group">
+          <label>Amount (USD)</label>
+          <input type="number" name="amount" step="0.0001" min="<%= settings.min_withdrawal %>" max="<%= user.balance %>" placeholder="Enter amount" required>
+        </div>
+        <div class="form-group">
+          <label>USDT BEP20 Wallet Address</label>
+          <input type="text" name="wallet_address" placeholder="Enter your USDT BEP20 address" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" <%= user.balance < settings.min_withdrawal ? 'disabled' : '' %>>
+          Submit Withdrawal
+        </button>
+      </form>
+
+      <% if (withdrawals.length > 0) { %>
+        <div class="withdraw-history">
+          <h3>Withdrawal History</h3>
+          <% withdrawals.slice().reverse().forEach(w => { %>
+            <div class="history-item">
+              <div class="history-left">
+                <span class="history-amount">$<%= w.amount.toFixed(4) %></span>
+                <span class="history-wallet"><%= w.wallet_address.substring(0,8) %>...<%= w.wallet_address.substring(w.wallet_address.length-6) %></span>
+              </div>
+              <div class="history-right">
+                <span class="badge badge-<%= w.status %>"><%= w.status %></span>
+                <span class="history-date"><%= new Date(w.created_at).toLocaleDateString() %></span>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="/" class="nav-item">
+        <img src="/img/favicon.svg" alt="Home" class="nav-svg">
+        <span>Home</span>
+      </a>
+      <a href="/ads" class="nav-item">
+        <img src="/img/icon-ads.svg" alt="Ads" class="nav-svg">
+        <span>Ads</span>
+      </a>
+      <a href="/tasks" class="nav-item">
+        <img src="/img/icon-tasks.svg" alt="Tasks" class="nav-svg">
+        <span>Tasks</span>
+      </a>
+      <a href="/profile" class="nav-item">
+        <img src="/img/icon-profile.svg" alt="Profile" class="nav-svg">
+        <span>Profile</span>
+      </a>
+    </nav>
+  </div>
+  <script src="/js/main.js"></script>
+</body>
+</html>

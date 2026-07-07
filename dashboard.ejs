@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - EarnHub</title>
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-left">
+        <span class="logo-sm"><img src="/img/logo.svg" alt="EarnHub" class="logo-sm-img"></span>
+      </div>
+      <div class="header-right">
+        <span class="balance-display">$<%= user.balance.toFixed(4) %></span>
+        <a href="/logout" class="btn-icon" title="Logout">&#x2BBE;</a>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <div class="welcome-banner">
+        <h2>Welcome, <%= user.name %>!</h2>
+        <p>Start earning by watching ads and completing tasks</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card stat-green">
+          <div class="stat-icon">$</div>
+          <div class="stat-info">
+            <span class="stat-number">$<%= user.balance.toFixed(4) %></span>
+            <span class="stat-text">Balance</span>
+          </div>
+        </div>
+        <div class="stat-card stat-blue">
+          <div class="stat-icon">&#8593;</div>
+          <div class="stat-info">
+            <span class="stat-number">$<%= user.total_earned.toFixed(4) %></span>
+            <span class="stat-text">Total Earned</span>
+          </div>
+        </div>
+        <div class="stat-card stat-purple">
+          <div class="stat-icon">&#9733;</div>
+          <div class="stat-info">
+            <span class="stat-number"><%= todayViews %></span>
+            <span class="stat-text">Ads Today</span>
+          </div>
+        </div>
+        <div class="stat-card stat-orange">
+          <div class="stat-icon">&#9734;</div>
+          <div class="stat-info">
+            <span class="stat-number"><%= referrals.length %></span>
+            <span class="stat-text">Referrals</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <h3>Quick Actions</h3>
+        <div class="action-grid">
+          <a href="/ads" class="action-card">
+            <div class="action-icon action-green"><img src="/img/icon-ads.svg" alt="Ads" class="action-svg"></div>
+            <span>Watch Ads</span>
+            <small>$0.0020/ad</small>
+          </a>
+          <a href="/tasks" class="action-card">
+            <div class="action-icon action-blue"><img src="/img/icon-tasks.svg" alt="Tasks" class="action-svg"></div>
+            <span>Tasks</span>
+            <small>Earn more</small>
+          </a>
+          <a href="/withdraw" class="action-card">
+            <div class="action-icon action-purple"><img src="/img/icon-withdraw.svg" alt="Withdraw" class="action-svg"></div>
+            <span>Withdraw</span>
+            <small>USDT BEP20</small>
+          </a>
+          <a href="/referral" class="action-card">
+            <div class="action-icon action-orange"><img src="/img/icon-referral.svg" alt="Refer" class="action-svg"></div>
+            <span>Refer</span>
+            <small>Earn 10%</small>
+          </a>
+        </div>
+      </div>
+
+      <div class="gift-code-section">
+        <h3>Claim Gift Code</h3>
+        <div class="gift-form">
+          <input type="text" id="giftCodeInput" placeholder="Enter gift code" class="gift-input">
+          <button onclick="claimGiftCode()" class="btn btn-primary">Claim</button>
+        </div>
+        <div id="giftResult"></div>
+      </div>
+
+      <div class="referral-box">
+        <h3>Your Referral Code</h3>
+        <div class="ref-code-display">
+          <span id="refCode"><%= user.referral_code %></span>
+          <button onclick="copyRefCode()" class="btn-copy">Copy</button>
+        </div>
+        <p class="ref-info">Share & earn 10% commission on referrals' earnings</p>
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="/" class="nav-item active">
+        <img src="/img/favicon.svg" alt="Home" class="nav-svg">
+        <span>Home</span>
+      </a>
+      <a href="/ads" class="nav-item">
+        <img src="/img/icon-ads.svg" alt="Ads" class="nav-svg">
+        <span>Ads</span>
+      </a>
+      <a href="/tasks" class="nav-item">
+        <img src="/img/icon-tasks.svg" alt="Tasks" class="nav-svg">
+        <span>Tasks</span>
+      </a>
+      <a href="/profile" class="nav-item">
+        <img src="/img/icon-profile.svg" alt="Profile" class="nav-svg">
+        <span>Profile</span>
+      </a>
+    </nav>
+  </div>
+  <script src="/js/main.js"></script>
+</body>
+</html>

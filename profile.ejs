@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - EarnHub</title>
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-left">
+        <a href="/" class="back-btn">&#8592;</a>
+        <span class="page-title">Profile</span>
+      </div>
+      <div class="header-right">
+        <span class="balance-display">$<%= user.balance.toFixed(4) %></span>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <div class="profile-header">
+        <div class="profile-avatar"><%= user.name.charAt(0).toUpperCase() %></div>
+        <h2><%= user.name %></h2>
+        <p class="profile-email"><%= user.email %></p>
+        <p class="profile-phone"><%= user.phone %></p>
+      </div>
+
+      <div class="profile-stats">
+        <div class="p-stat">
+          <span class="p-stat-value">$<%= user.balance.toFixed(4) %></span>
+          <span class="p-stat-label">Balance</span>
+        </div>
+        <div class="p-stat">
+          <span class="p-stat-value">$<%= user.total_earned.toFixed(4) %></span>
+          <span class="p-stat-label">Total Earned</span>
+        </div>
+        <div class="p-stat">
+          <span class="p-stat-value">$<%= (user.referral_earnings || 0).toFixed(4) %></span>
+          <span class="p-stat-label">Referral Earned</span>
+        </div>
+        <div class="p-stat">
+          <span class="p-stat-value"><%= referrals.length %></span>
+          <span class="p-stat-label">Referrals</span>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h3>Referral Code</h3>
+        <div class="ref-code-display">
+          <span id="refCode"><%= user.referral_code %></span>
+          <button onclick="copyRefCode()" class="btn-copy">Copy</button>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h3>Withdrawal History</h3>
+        <% if (withdrawals.length > 0) { %>
+          <div class="history-list">
+            <% withdrawals.slice().reverse().forEach(w => { %>
+              <div class="history-item">
+                <div class="history-left">
+                  <span class="history-amount">$<%= w.amount.toFixed(4) %></span>
+                  <span class="history-method"><%= w.method %></span>
+                </div>
+                <div class="history-right">
+                  <span class="badge badge-<%= w.status %>"><%= w.status %></span>
+                  <span class="history-date"><%= new Date(w.created_at).toLocaleDateString() %></span>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <p class="empty-text">No withdrawals yet</p>
+        <% } %>
+      </div>
+
+      <div class="profile-section">
+        <h3>Account Info</h3>
+        <div class="info-list">
+          <div class="info-item">
+            <span>Member Since</span>
+            <span><%= new Date(user.created_at).toLocaleDateString() %></span>
+          </div>
+          <div class="info-item">
+            <span>Status</span>
+            <span class="badge badge-<%= user.status %>"><%= user.status %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <a href="/withdraw" class="btn btn-primary btn-full">Withdraw</a>
+        <a href="/logout" class="btn btn-outline btn-full">Logout</a>
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="/" class="nav-item">
+        <img src="/img/favicon.svg" alt="Home" class="nav-svg">
+        <span>Home</span>
+      </a>
+      <a href="/ads" class="nav-item">
+        <img src="/img/icon-ads.svg" alt="Ads" class="nav-svg">
+        <span>Ads</span>
+      </a>
+      <a href="/tasks" class="nav-item">
+        <img src="/img/icon-tasks.svg" alt="Tasks" class="nav-svg">
+        <span>Tasks</span>
+      </a>
+      <a href="/profile" class="nav-item active">
+        <img src="/img/icon-profile.svg" alt="Profile" class="nav-svg">
+        <span>Profile</span>
+      </a>
+    </nav>
+  </div>
+  <script src="/js/main.js"></script>
+</body>
+</html>
